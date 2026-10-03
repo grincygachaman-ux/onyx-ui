@@ -1,0 +1,302 @@
+{
+  "_comment": "ONYX layout.json. Cheat-oriented tab names were replaced with neutral overlay tabs so this stays safe for a streamer-overlay UI builder. The structure is meant for a dynamic Lua renderer.",
+  "schemaVersion": 1,
+  "app": {
+    "name": "ONYX",
+    "description": "Premium streamer overlay UI for Roblox",
+    "buildMode": "dynamic",
+    "source": "github"
+  },
+  "tabs": [
+    {
+      "id": "home",
+      "label": "Home",
+      "icon": "home",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "user info",
+          "elements": [
+            { "type": "label", "id": "userInfo", "height": 90 },
+            { "type": "button", "id": "copyInvite", "label": "Copy Discord", "callback": "copyDiscord" }
+          ]
+        },
+        {
+          "title": "quick",
+          "elements": [
+            { "type": "button", "id": "rejoin", "label": "Rejoin Server", "callback": "rejoin" },
+            { "type": "button", "id": "reset", "label": "Reset Session", "callback": "resetSession" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "search",
+      "label": "Search",
+      "icon": "search",
+      "minPlan": "PRO",
+      "sections": [
+        {
+          "title": "universal search",
+          "elements": [
+            { "type": "textbox", "id": "query", "placeholder": "Search controls, pages, actions", "callback": "searchQuery" },
+            { "type": "dropdown", "id": "scope", "label": "Scope", "options": ["All", "Tabs", "Widgets", "Actions", "Profiles"], "default": "All", "callback": "searchScope" }
+          ]
+        },
+        {
+          "title": "results",
+          "elements": [
+            { "type": "label", "id": "searchResults", "height": 120 },
+            { "type": "button", "id": "runSearch", "label": "Run Search", "callback": "runSearch" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "games",
+      "label": "Games",
+      "icon": "gamepad",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "presets",
+          "elements": [
+            { "type": "dropdown", "id": "gamePreset", "label": "Game Preset", "options": ["General", "FPS", "Sandbox", "Roleplay", "Party"], "default": "General", "callback": "applyGamePreset" }
+          ]
+        },
+        {
+          "title": "actions",
+          "elements": [
+            { "type": "button", "id": "applyPreset", "label": "Apply Preset", "callback": "applyPreset" },
+            { "type": "button", "id": "resetPreset", "label": "Reset Preset", "callback": "resetPreset" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "visuals",
+      "label": "Visuals",
+      "icon": "visuals",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "appearance",
+          "elements": [
+            { "type": "toggle", "id": "glass", "label": "Glass Panels", "default": true, "callback": "toggleGlass" },
+            { "type": "slider", "id": "opacity", "label": "Opacity", "min": 25, "max": 100, "default": 95, "callback": "setOpacity" },
+            { "type": "slider", "id": "radius", "label": "Corner Radius", "min": 8, "max": 16, "default": 12, "callback": "setRadius" }
+          ]
+        },
+        {
+          "title": "colors",
+          "elements": [
+            { "type": "colorslider", "id": "accent", "label": "Accent Color", "default": [255, 255, 255], "callback": "setAccent" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "movement",
+      "label": "Movement",
+      "icon": "movement",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "motion",
+          "elements": [
+            { "type": "toggle", "id": "smoothScroll", "label": "Smooth Scroll", "default": true, "callback": "toggleSmoothScroll" },
+            { "type": "toggle", "id": "dockSnap", "label": "Dock Snap", "default": true, "callback": "toggleDockSnap" },
+            { "type": "slider", "id": "slideSpeed", "label": "Slide Speed", "min": 1, "max": 10, "default": 6, "callback": "setSlideSpeed" }
+          ]
+        },
+        {
+          "title": "behavior",
+          "elements": [
+            { "type": "dropdown", "id": "motionStyle", "label": "Motion Style", "options": ["Subtle", "Balanced", "Fast"], "default": "Balanced", "callback": "setMotionStyle" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "configs",
+      "label": "Configs",
+      "icon": "configs",
+      "minPlan": "BASIC",
+      "sections": [
+        {
+          "title": "profiles",
+          "elements": [
+            { "type": "dropdown", "id": "profile", "label": "Profile", "options": ["Main", "Stream", "Minimal"], "default": "Main", "callback": "selectProfile" },
+            { "type": "button", "id": "saveConfig", "label": "Save Config", "callback": "saveConfig" },
+            { "type": "button", "id": "loadConfig", "label": "Load Config", "callback": "loadConfig" }
+          ]
+        },
+        {
+          "title": "sync",
+          "elements": [
+            { "type": "button", "id": "exportConfig", "label": "Export JSON", "callback": "exportConfig" },
+            { "type": "button", "id": "importConfig", "label": "Import JSON", "callback": "importConfig" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "profiles",
+      "label": "Profiles",
+      "icon": "profiles",
+      "minPlan": "BASIC",
+      "sections": [
+        {
+          "title": "profile manager",
+          "elements": [
+            { "type": "dropdown", "id": "activeProfile", "label": "Active Profile", "options": ["Main", "Streaming", "Minimal"], "default": "Main", "callback": "setActiveProfile" },
+            { "type": "toggle", "id": "autoSave", "label": "Auto-save", "default": true, "callback": "toggleAutoSave" }
+          ]
+        },
+        {
+          "title": "actions",
+          "elements": [
+            { "type": "button", "id": "saveProfile", "label": "Save Profile", "callback": "saveProfile" },
+            { "type": "button", "id": "loadProfile", "label": "Load Profile", "callback": "loadProfile" },
+            { "type": "button", "id": "resetProfile", "label": "Reset Profile", "callback": "resetProfile" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notifications",
+      "label": "Notifications",
+      "icon": "notifications",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "toasts",
+          "elements": [
+            { "type": "toggle", "id": "enabled", "label": "Enable Notifications", "default": true, "callback": "toggleNotifications" },
+            { "type": "slider", "id": "duration", "label": "Toast Duration", "min": 1, "max": 10, "default": 3, "callback": "setToastDuration" },
+            { "type": "toggle", "id": "sounds", "label": "Notification Sounds", "default": false, "callback": "toggleNotificationSounds" }
+          ]
+        },
+        {
+          "title": "preview",
+          "elements": [
+            { "type": "button", "id": "toastInfo", "label": "Show Info Toast", "callback": "previewInfoToast" },
+            { "type": "button", "id": "toastWarn", "label": "Show Warning Toast", "callback": "previewWarningToast" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "themes",
+      "label": "Themes",
+      "icon": "themes",
+      "minPlan": "BASIC",
+      "sections": [
+        {
+          "title": "theme",
+          "elements": [
+            { "type": "dropdown", "id": "themePreset", "label": "Theme Preset", "options": ["Monochrome", "Blackout", "Studio", "Minimal"], "default": "Monochrome", "callback": "setThemePreset" },
+            { "type": "dropdown", "id": "fontPreset", "label": "Font Preset", "options": ["Gotham", "Arial", "Source Sans"], "default": "Gotham", "callback": "setFontPreset" }
+          ]
+        },
+        {
+          "title": "accent",
+          "elements": [
+            { "type": "colorslider", "id": "primaryColor", "label": "Primary Color", "default": [255, 255, 255], "callback": "setPrimaryColor" },
+            { "type": "button", "id": "resetTheme", "label": "Reset Theme", "callback": "resetTheme" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "layout",
+      "label": "Layout",
+      "icon": "layout",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "grid",
+          "elements": [
+            { "type": "dropdown", "id": "columns", "label": "Columns", "options": ["1", "2", "3", "4"], "default": "2", "callback": "setColumns" },
+            { "type": "slider", "id": "gap", "label": "Gap", "min": 0, "max": 30, "default": 8, "callback": "setGap" },
+            { "type": "slider", "id": "padding", "label": "Padding", "min": 0, "max": 32, "default": 12, "callback": "setPadding" }
+          ]
+        },
+        {
+          "title": "flow",
+          "elements": [
+            { "type": "dropdown", "id": "direction", "label": "Direction", "options": ["Vertical", "Horizontal"], "default": "Vertical", "callback": "setDirection" },
+            { "type": "toggle", "id": "autoArrange", "label": "Auto Arrange", "default": true, "callback": "toggleAutoArrange" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "performance",
+      "label": "Performance",
+      "icon": "performance",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "rendering",
+          "elements": [
+            { "type": "dropdown", "id": "quality", "label": "Quality", "options": ["Low", "Medium", "High", "Ultra"], "default": "High", "callback": "setQuality" },
+            { "type": "slider", "id": "fpsCap", "label": "FPS Cap", "min": 30, "max": 240, "default": 60, "callback": "setFpsCap" }
+          ]
+        },
+        {
+          "title": "diagnostics",
+          "elements": [
+            { "type": "toggle", "id": "perfMonitor", "label": "Performance Monitor", "default": false, "callback": "togglePerfMonitor" },
+            { "type": "button", "id": "refreshPerf", "label": "Refresh Stats", "callback": "refreshStats" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "label": "Settings",
+      "icon": "settings",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "general",
+          "elements": [
+            { "type": "toggle", "id": "animations", "label": "Animations", "default": true, "callback": "toggleAnimations" },
+            { "type": "toggle", "id": "rememberTab", "label": "Remember Last Tab", "default": true, "callback": "toggleRememberTab" },
+            { "type": "toggle", "id": "launchMinimized", "label": "Launch Minimized", "default": false, "callback": "toggleLaunchMinimized" }
+          ]
+        },
+        {
+          "title": "maintenance",
+          "elements": [
+            { "type": "button", "id": "clearCache", "label": "Clear Cache", "callback": "clearCache" },
+            { "type": "button", "id": "reloadUi", "label": "Reload UI", "callback": "reloadUi" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "info",
+      "label": "Info",
+      "icon": "info",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "about",
+          "elements": [
+            { "type": "label", "id": "aboutText", "height": 100 },
+            { "type": "label", "id": "buildText", "height": 28 }
+          ]
+        },
+        {
+          "title": "links",
+          "elements": [
+            { "type": "button", "id": "copyDiscord", "label": "Copy Discord", "callback": "copyDiscord" },
+            { "type": "button", "id": "copyInfo", "label": "Copy App Info", "callback": "copyAppInfo" }
+          ]
+        }
+      ]
+    }
+  ]
+}
