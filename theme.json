@@ -1,7 +1,5 @@
 {
-  "_comment": "ONYX theme.json. RGB values are [r, g, b] in 0-255. This file is meant to be read by the Roblox Lua builder and converted into Color3 values at runtime.",
   "colors": {
-    "_comment": "Core monochrome palette. bg/card/card2/card3 are the layered dark surfaces. line/lineBright are border and divider tones. white tones are opacity-friendly text hierarchy. red/green/gold/purple are optional semantic accents for status and plan badges.",
     "bg": [4, 4, 4],
     "card": [11, 11, 11],
     "card2": [16, 16, 16],
@@ -21,14 +19,12 @@
     "purple": [160, 100, 255]
   },
   "fonts": {
-    "_comment": "Roblox font family names used by the UI builder. black is for big titles, bold for buttons and tab labels, medium for controls, regular for body text.",
     "black": "GothamBlack",
     "bold": "GothamBold",
     "medium": "GothamMedium",
     "regular": "Gotham"
   },
   "radius": {
-    "_comment": "Corner radii in pixels. window is the outer frame, card is standard panels, button is pill actions, input is text fields, toggle is switch, badge is value chips.",
     "window": 14,
     "card": 11,
     "button": 19,
@@ -37,7 +33,6 @@
     "badge": 7
   },
   "glass": {
-    "_comment": "Glassmorphism tuning. cardTransparency affects panel fill alpha, lineTransparency affects border softness, glowLayers controls the number of outer glow shells, glowStartSize is the first glow shell size in pixels, glowStartTransparency is the first glow shell alpha.",
     "cardTransparency": 0.12,
     "lineTransparency": 0.35,
     "glowLayers": 4,
@@ -45,7 +40,6 @@
     "glowStartTransparency": 0.985
   },
   "motion": {
-    "_comment": "Animation timings in seconds. These are good defaults for hover, pop-in and transitions. easing is just a reference label for the builder.",
     "hover": 0.15,
     "tap": 0.12,
     "slide": 0.3,
@@ -55,7 +49,6 @@
     "easing": "Back/Quart mix"
   },
   "layout": {
-    "_comment": "Shared window geometry. These values match the recommended 940x620 desktop layout.",
     "windowWidth": 940,
     "windowHeight": 620,
     "topbarHeight": 56,
@@ -68,13 +61,11 @@
     "footerHeight": 28
   },
   "badges": {
-    "_comment": "Badge heights and padding used for plan labels, value pills and small chips.",
     "height": 22,
     "paddingX": 10,
     "paddingY": 4
   },
   "plans": {
-    "_comment": "Plan metadata used by layout.json. color1/color2 are used for small plan gradients or tags. gradient=true means the UI may blend the two colors in a subtle chip.",
     "FREE-TRIAL": {
       "name": "Free Trial",
       "color1": [180, 180, 180],
