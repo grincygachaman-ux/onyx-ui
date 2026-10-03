@@ -1,94 +1,355 @@
 {
-  "colors": {
-    "bg": [4, 4, 4],
-    "card": [11, 11, 11],
-    "card2": [16, 16, 16],
-    "card3": [22, 22, 22],
-    "line": [30, 30, 30],
-    "lineBright": [51, 51, 51],
-    "white": [255, 255, 255],
-    "white90": [230, 230, 230],
-    "white80": [204, 204, 204],
-    "white60": [153, 153, 153],
-    "white40": [102, 102, 102],
-    "white25": [64, 64, 64],
-    "black": [0, 0, 0],
-    "red": [255, 60, 80],
-    "green": [80, 240, 130],
-    "gold": [255, 200, 80],
-    "purple": [160, 100, 255]
+  "schemaVersion": 1,
+  "app": {
+    "name": "ONYX",
+    "description": "Premium multi-game utility",
+    "buildMode": "dynamic",
+    "source": "github"
   },
-  "fonts": {
-    "black": "GothamBlack",
-    "bold": "GothamBold",
-    "medium": "GothamMedium",
-    "regular": "Gotham"
-  },
-  "radius": {
-    "window": 14,
-    "card": 11,
-    "button": 19,
-    "input": 10,
-    "toggle": 12,
-    "badge": 7
-  },
-  "glass": {
-    "cardTransparency": 0.12,
-    "lineTransparency": 0.35,
-    "glowLayers": 4,
-    "glowStartSize": 940,
-    "glowStartTransparency": 0.985
-  },
-  "motion": {
-    "hover": 0.15,
-    "tap": 0.12,
-    "slide": 0.3,
-    "pop": 0.38,
-    "dropdown": 0.24,
-    "toast": 0.36,
-    "easing": "Back/Quart mix"
-  },
-  "layout": {
-    "windowWidth": 940,
-    "windowHeight": 620,
-    "topbarHeight": 56,
-    "sidebarWidth": 210,
-    "contentPaddingX": 16,
-    "contentPaddingY": 12,
-    "contentGap": 6,
-    "sidebarGap": 2,
-    "tabButtonHeight": 38,
-    "footerHeight": 28
-  },
-  "badges": {
-    "height": 22,
-    "paddingX": 10,
-    "paddingY": 4
-  },
-  "plans": {
-    "FREE-TRIAL": {
-      "name": "Free Trial",
-      "color1": [180, 180, 180],
-      "color2": [220, 220, 220],
-      "gradient": true
+  "tabs": [
+    {
+      "id": "home",
+      "label": "Home",
+      "icon": "home",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "user info",
+          "elements": [
+            { "type": "label", "id": "userInfo", "height": 90 },
+            { "type": "button", "id": "copyInvite", "label": "Copy Discord", "callback": "copyDiscord" }
+          ]
+        },
+        {
+          "title": "quick",
+          "elements": [
+            { "type": "button", "id": "rejoin", "label": "Rejoin Server", "callback": "rejoin" },
+            { "type": "button", "id": "reset", "label": "Reset Character", "callback": "resetChar" },
+            { "type": "button", "id": "copyJobId", "label": "Copy JobId", "callback": "copyJobId" }
+          ]
+        }
+      ]
     },
-    "BASIC": {
-      "name": "Basic",
-      "color1": [100, 200, 255],
-      "color2": [150, 220, 255],
-      "gradient": true
+    {
+      "id": "search",
+      "label": "Search",
+      "icon": "search",
+      "minPlan": "PRO",
+      "sections": [
+        {
+          "title": "universal search",
+          "elements": [
+            { "type": "textbox", "id": "query", "placeholder": "ammo / teleport / speed / health", "callback": "searchQuery" },
+            { "type": "dropdown", "id": "scope", "label": "Scope", "options": ["All", "Remotes", "Scripts", "Values", "PlayerFolders"], "default": "All", "callback": "searchScope" }
+          ]
+        },
+        {
+          "title": "results",
+          "elements": [
+            { "type": "label", "id": "searchResults", "height": 140 },
+            { "type": "button", "id": "runSearch", "label": "Scan & Search", "callback": "runSearch" },
+            { "type": "button", "id": "copyResults", "label": "Copy Results", "callback": "copySearchResults" }
+          ]
+        }
+      ]
     },
-    "PRO": {
-      "name": "Pro",
-      "color1": [255, 200, 80],
-      "color2": [255, 240, 130],
-      "gradient": true
+    {
+      "id": "games",
+      "label": "Games",
+      "icon": "gamepad",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "game presets",
+          "elements": [
+            { "type": "label", "id": "gameInfo", "height": 60 },
+            { "type": "dropdown", "id": "gamePreset", "label": "Auto-detect", "options": ["Auto", "Arsenal", "Phantom Forces", "KILLSTREAK", "Deadline", "NDS", "Universal"], "default": "Auto", "callback": "applyGamePreset" }
+          ]
+        },
+        {
+          "title": "actions",
+          "elements": [
+            { "type": "button", "id": "applyPreset", "label": "Apply Detected Preset", "callback": "applyPreset" },
+            { "type": "button", "id": "resetPreset", "label": "Reset Preset", "callback": "resetPreset" }
+          ]
+        }
+      ]
     },
-    "PREMIER": {
-      "name": "Premier",
-      "color1": [160, 100, 255],
-      "color2": [255, 120, 220],
-      "gradient": true
+    {
+      "id": "visuals",
+      "label": "Visuals",
+      "icon": "visuals",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "lighting",
+          "elements": [
+            { "type": "toggle", "id": "fullbright", "label": "Fullbright", "default": false, "callback": "setFullbright" },
+            { "type": "toggle", "id": "fog", "label": "Fog", "default": false, "callback": "setFog" },
+            { "type": "colorslider", "id": "ambientColor", "label": "Ambient Color", "default": [255, 255, 255], "callback": "setAmbient" }
+          ]
+        },
+        {
+          "title": "camera",
+          "elements": [
+            { "type": "slider", "id": "fov", "label": "Camera FOV", "min": 40, "max": 180, "default": 70, "callback": "setFov" }
+          ]
+        },
+        {
+          "title": "time",
+          "elements": [
+            { "type": "button", "id": "setDay", "label": "Set Day (14:00)", "callback": "setDay" },
+            { "type": "button", "id": "setNight", "label": "Set Night (00:00)", "callback": "setNight" },
+            { "type": "button", "id": "randomTime", "label": "Randomize Time", "callback": "randomTime" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "combat",
+      "label": "Combat",
+      "icon": "combat",
+      "minPlan": "PRO",
+      "sections": [
+        {
+          "title": "silent aim",
+          "elements": [
+            { "type": "toggle", "id": "silentEnabled", "label": "Enable Silent Aim (RMB)", "default": false, "callback": "setSilent" },
+            { "type": "slider", "id": "silentFov", "label": "FOV Radius", "min": 20, "max": 500, "default": 150, "callback": "setSilentFov" },
+            { "type": "slider", "id": "silentSmooth", "label": "Smoothness", "min": 10, "max": 100, "default": 50, "callback": "setSilentSmooth" },
+            { "type": "toggle", "id": "silentWall", "label": "Wall Check", "default": true, "callback": "setSilentWall" },
+            { "type": "toggle", "id": "silentTeam", "label": "Team Check", "default": true, "callback": "setSilentTeam" },
+            { "type": "toggle", "id": "silentPredict", "label": "Velocity Prediction", "default": true, "callback": "setSilentPredict" },
+            { "type": "toggle", "id": "triggerbot", "label": "Triggerbot", "default": false, "callback": "setTriggerbot" }
+          ]
+        },
+        {
+          "title": "weapon",
+          "elements": [
+            { "type": "toggle", "id": "rapidFire", "label": "Rapid Fire", "default": false, "callback": "setRapidFire" },
+            { "type": "toggle", "id": "infAmmo", "label": "Infinite Ammo", "default": false, "callback": "setInfAmmo" },
+            { "type": "toggle", "id": "noRecoil", "label": "No Recoil", "default": false, "callback": "setNoRecoil" }
+          ]
+        },
+        {
+          "title": "character",
+          "elements": [
+            { "type": "toggle", "id": "godmode", "label": "Godmode", "default": false, "callback": "setGodmode" },
+            { "type": "toggle", "id": "antiAfk", "label": "Anti-AFK", "default": true, "callback": "setAntiAfk" }
+          ]
+        },
+        {
+          "title": "actions",
+          "elements": [
+            { "type": "button", "id": "healSelf", "label": "Heal Self", "callback": "healSelf" },
+            { "type": "button", "id": "killAll", "label": "Kill All", "callback": "killAll" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "movement",
+      "label": "Movement",
+      "icon": "movement",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "speed",
+          "elements": [
+            { "type": "toggle", "id": "speedEnabled", "label": "Speed Hack", "default": false, "callback": "setSpeed" },
+            { "type": "slider", "id": "speedValue", "label": "WalkSpeed", "min": 16, "max": 500, "default": 50, "callback": "setSpeedValue" }
+          ]
+        },
+        {
+          "title": "jump",
+          "elements": [
+            { "type": "toggle", "id": "jumpEnabled", "label": "Jump Power", "default": false, "callback": "setJump" },
+            { "type": "slider", "id": "jumpValue", "label": "JumpPower", "min": 50, "max": 500, "default": 100, "callback": "setJumpValue" },
+            { "type": "toggle", "id": "infJump", "label": "Infinite Jump", "default": false, "callback": "setInfJump" }
+          ]
+        },
+        {
+          "title": "safety",
+          "elements": [
+            { "type": "toggle", "id": "noclip", "label": "Noclip", "default": false, "callback": "setNoclip" },
+            { "type": "toggle", "id": "safeFall", "label": "Safe Fall", "default": true, "callback": "setSafeFall" },
+            { "type": "slider", "id": "gravity", "label": "Gravity", "min": 0, "max": 500, "default": 196, "callback": "setGravity" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fly",
+      "label": "Fly",
+      "icon": "fly",
+      "minPlan": "BASIC",
+      "sections": [
+        {
+          "title": "fly",
+          "elements": [
+            { "type": "toggle", "id": "flyEnabled", "label": "Enable Fly", "default": false, "callback": "setFly" },
+            { "type": "slider", "id": "flySpeed", "label": "Fly Speed", "min": 10, "max": 500, "default": 100, "callback": "setFlySpeed" }
+          ]
+        },
+        {
+          "title": "controls",
+          "elements": [
+            { "type": "label", "id": "flyControls", "height": 60 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hitbox",
+      "label": "Hitbox",
+      "icon": "hitbox",
+      "minPlan": "PREMIER",
+      "sections": [
+        {
+          "title": "expander",
+          "elements": [
+            { "type": "toggle", "id": "hitboxEnabled", "label": "Enable Hitbox Expander", "default": false, "callback": "setHitbox" },
+            { "type": "slider", "id": "hitboxSize", "label": "Hitbox Size", "min": 3, "max": 12, "default": 6, "callback": "setHitboxSize" },
+            { "type": "dropdown", "id": "hitboxMode", "label": "Target Part", "options": ["Head", "UpperTorso", "Both"], "default": "UpperTorso", "callback": "setHitboxMode" }
+          ]
+        },
+        {
+          "title": "manual",
+          "elements": [
+            { "type": "button", "id": "restoreHitboxes", "label": "Restore All", "callback": "restoreHitboxes" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "esp",
+      "label": "ESP",
+      "icon": "esp",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "highlight esp",
+          "elements": [
+            { "type": "toggle", "id": "espEnabled", "label": "Enable ESP", "default": false, "callback": "setEsp" },
+            { "type": "toggle", "id": "espNames", "label": "Show Names", "default": true, "callback": "setEspNames" },
+            { "type": "toggle", "id": "espHealth", "label": "Show Health", "default": true, "callback": "setEspHealth" },
+            { "type": "toggle", "id": "espDist", "label": "Show Distance", "default": false, "callback": "setEspDist" },
+            { "type": "toggle", "id": "espTracers", "label": "Snaplines", "default": false, "callback": "setEspTracers" },
+            { "type": "toggle", "id": "espTeamCheck", "label": "Team Check", "default": true, "callback": "setEspTeamCheck" },
+            { "type": "slider", "id": "espMaxDist", "label": "Max Distance", "min": 100, "max": 2000, "default": 500, "callback": "setEspMaxDist" }
+          ]
+        },
+        {
+          "title": "chams",
+          "elements": [
+            { "type": "toggle", "id": "espChams", "label": "Enable Chams", "default": false, "callback": "setEspChams" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troll",
+      "label": "Troll",
+      "icon": "troll",
+      "minPlan": "BASIC",
+      "sections": [
+        {
+          "title": "local visibility",
+          "elements": [
+            { "type": "button", "id": "invisibleLocal", "label": "Invisible (Local)", "callback": "invisibleLocal" },
+            { "type": "button", "id": "visibleLocal", "label": "Visible (Local)", "callback": "visibleLocal" }
+          ]
+        },
+        {
+          "title": "auto fling",
+          "elements": [
+            { "type": "toggle", "id": "autoFling", "label": "Auto-Fling (Nearby)", "default": false, "callback": "setAutoFling" },
+            { "type": "slider", "id": "autoFlingRange", "label": "Range", "min": 5, "max": 100, "default": 30, "callback": "setAutoFlingRange" }
+          ]
+        },
+        {
+          "title": "mass effects",
+          "elements": [
+            { "type": "button", "id": "flingAll", "label": "Fling All Players", "callback": "flingAll" },
+            { "type": "button", "id": "teleportAll", "label": "Teleport All To Me", "callback": "teleportAll" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spy",
+      "label": "RemoteSpy",
+      "icon": "spy",
+      "minPlan": "PREMIER",
+      "sections": [
+        {
+          "title": "remote spy",
+          "elements": [
+            { "type": "toggle", "id": "spyEnabled", "label": "Enable RemoteSpy", "default": false, "callback": "setSpy" },
+            { "type": "button", "id": "spyClear", "label": "Clear Log", "callback": "spyClear" },
+            { "type": "label", "id": "spyLog", "height": 300 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "configs",
+      "label": "Configs",
+      "icon": "configs",
+      "minPlan": "BASIC",
+      "sections": [
+        {
+          "title": "save",
+          "elements": [
+            { "type": "textbox", "id": "configName", "placeholder": "config name", "callback": "configNameChanged" },
+            { "type": "button", "id": "saveConfig", "label": "Save Config", "callback": "saveConfig" }
+          ]
+        },
+        {
+          "title": "load",
+          "elements": [
+            { "type": "button", "id": "loadConfig", "label": "Load Config", "callback": "loadConfig" },
+            { "type": "button", "id": "listConfigs", "label": "List Configs", "callback": "listConfigs" },
+            { "type": "button", "id": "deleteConfig", "label": "Delete Config", "callback": "deleteConfig" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "label": "Settings",
+      "icon": "settings",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "session",
+          "elements": [
+            { "type": "button", "id": "resetDefaults", "label": "Reset Defaults", "callback": "resetDefaults" },
+            { "type": "button", "id": "unload", "label": "Unload ONYX", "callback": "unloadOnyx" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "info",
+      "label": "Info",
+      "icon": "info",
+      "minPlan": "FREE-TRIAL",
+      "sections": [
+        {
+          "title": "about",
+          "elements": [
+            { "type": "label", "id": "aboutText", "height": 100 },
+            { "type": "label", "id": "buildText", "height": 28 }
+          ]
+        },
+        {
+          "title": "links",
+          "elements": [
+            { "type": "button", "id": "copyDiscordInfo", "label": "Copy Discord", "callback": "copyDiscord" }
+          ]
+        }
+      ]
     }
-  }
+  ]
 }
